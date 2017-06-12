@@ -1,7 +1,9 @@
 NoIntent abort
 VMCountIntent report total vms
-VMCountIntent count vms 
-HealthIntent report health
-HealthIntent report appliance health
+ApplianceHealthIntent report health
+ApplianceHealthIntent report appliance health
+VCenterBuildIntent report vcenter build
 HostClustersIntent list hosts in clusters
 HostClustersIntent list hosts
+HostClusterStatusIntent report cluster status
+VSANClusterIntent report vsan version

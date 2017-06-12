@@ -7,10 +7,19 @@
       "intent": "VMCountIntent"
     },
     {
-      "intent": "HealthIntent"
+      "intent": "ApplianceHealthIntent"
     },
-  	{
+    {
+      "intent": "VCenterBuildIntent"
+    },
+    {
       "intent": "HostClustersIntent"
+    },
+     {
+      "intent": "HostClusterStatusIntent"
+    },
+    {
+      "intent": "VSANClusterIntent"
     }
   ]
 }
