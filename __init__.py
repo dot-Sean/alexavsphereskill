@@ -3,9 +3,23 @@
 from flask import Flask
 from flask_ask import Ask, statement, question
 from vsphereapi import *
+import os
+import subprocess
 
 app = Flask(__name__)
 ask = Ask(app, "/vghetto_control")
+
+VMTENV = os.environ.copy()
+
+
+def execute(cmd, ofile=subprocess.PIPE, efile=subprocess.PIPE,
+            env=os.environ):
+    proc = subprocess.Popen(cmd, stdout=ofile, stderr=efile, env=env)
+    out, err = proc.communicate()
+    if type(out).__name__ == "bytes":
+        out = out.decode()
+
+    return (proc, out)
 
 
 @app.route('/')
@@ -49,6 +63,16 @@ def share_vcenter_build():
     return question(build_msg)
 
 
+@ask.intent("VCOSIntent")
+def share_vc_os():
+    (proc, out) = execute(["/usr/local/bin/powershell",
+                          '/Users/lamw/git/alexavsphereskill/pcli.ps1',
+                           'GetVCOS'], env=VMTENV)
+
+    vcos_msg = "The vCenter Server is running " + format(out)
+    return question(vcos_msg)
+
+
 @ask.intent("HostClusterStatusIntent")
 def share_cluster_status():
     (drs, ha, vsan) = get_cluster_status()
@@ -76,11 +100,6 @@ def share_vsan_version():
     version = get_vsan_version()
     vsan_msg = "Virtual SAN is running version " + version
     return question(vsan_msg)
-
-
-@ask.intent("PersonalIntent")
-def share_vsan_version():
-    return question("you are not too shabby yourself William")
 
 
 if __name__ == '__main__':

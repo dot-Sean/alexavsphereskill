@@ -20,6 +20,9 @@
     },
     {
       "intent": "VSANClusterIntent"
+    },
+    {
+      "intent": "VCOSIntent"
     }
   ]
 }

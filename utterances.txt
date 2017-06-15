@@ -7,3 +7,4 @@ HostClustersIntent list hosts in clusters
 HostClustersIntent list hosts
 HostClusterStatusIntent report cluster status
 VSANClusterIntent report vsan version
+VCOSIntent report vcenter os
